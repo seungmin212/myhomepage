@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이승민의 홈페이지</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>이름: 이승민</h1>
+    <p class="subtitle">한 줄 소개: 광운대학교 경영학부 빅데이터경영학과 25학번</p>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <main class="container">
+    <section>
+      <script>
+        let now = new Date();
+        let yearStr = prompt("목표 연도를 입력하세요 (예 : 2025)", "2025");
+        let monthStr = prompt("목표 월을 입력하세요 (예 : 1~12)", "1");
+        let dayStr = prompt("목표 일을 입력하세요 (예 : 1~31)", "1");
+        if (!yearStr || !monthStr || !dayStr || null) {
+          document.write("<h3>계산을 취소했습니다.</h3>")
+        } else {
+          year = parseInt(yearStr);
+          month = parseInt(monthStr);
+          day = parseInt(dayStr);
+          let targetDate = new Date(year, month, -1, day);
+          let diffMs = targetDate.getTime() - now.getTime();
+          let diffDay = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+          if (diffDay === 0) {
+            document.write("<h3> D-Day</h3>");
+          } else if (diffDay > 0) {
+            document.write("<h3> D-" + diffDay + "</h3>");
+          } else {
+            document.write("<h3> D+" + Math.abs(diffDay) + "</h3>");
+          }
+        }
+      </script>
+    </section>
+  </main>
+  <footer>
+    <small>&copy; <span id="year"></span> 이름: 이승민</small>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
