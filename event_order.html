@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이승민의 홈페이지</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #menu_box {
+            border: 1px solid black;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function recalc() {
+            var total = 0;
+            var checks = document.getElementsByClassName("menu-check");
+            var qtys = document.getElementsByClassName("menu-qty");
+
+            for (var i = 0; i < checks.length; i++) {
+                if (checks[i].checked) {
+                    var price = parseInt(checks[i].value);
+                    var quantity = parseInt(qtys[i].value);
+
+                    if (isNaN(quantity) || quantity < 1) {
+                        quantity = 1;
+                    }
+                    total += price * quantity;
+                }
+            }
+            document.getElementById("total").value = total;
+        }
+
+        function checkAddress() {
+            var addr = document.getElementById("addr");
+            if (addr.value == "") {
+                alert("배달 받으실 주소를 입력해주세요");
+                addr.focus();
+            }
+        }
+
+        function validate(e) {
+            var total = parseInt(document.getElementById("total").value);
+            if (total == 0) {
+                alert("메뉴를 선택해주세요.");
+                e.preventDefault();
+                return false;
+            }
+            else alert("주문 완료! (총 결제금액: " + total + "원)");
+            e.preventDefault();
+            return false;
+        }
+    </script>
+</head>
+
+<body>
+    <h3>피자 주문서</h3>
+    <hr>
+
+    <form action="#" onsubmit="return validate(event)">
+
+        <div id="menu_box">
+            <h4>메뉴[선택]</h4>
+            <div>
+                <input type="checkbox" class="menu-check" value="15000" onchange="recalc()"> 콤비네이션 피자(15,000원)
+                <input type="number" class="menu-qty" value="1" min="1" style="width: 60px;" onchange="recalc()" onkeyup="recalc()">개
+            </div>
+            <div>
+                <input type="checkbox" class="menu-check" value="12000" onchange="recalc()"> 페퍼로니 피자(12,000원)
+                <input type="number" class="menu-qty" value="1" min="1" style="width: 60px;" onchange="recalc()" onkeyup="recalc()">개
+            </div>
+            <div>
+                <input type="checkbox" class="menu-check" value="2000" onchange="recalc()"> 치즈 추가(2,000원)
+                <input type="number" class="menu-qty" value="1" min="1" style="width: 60px;" onchange="recalc()" onkeyup="recalc()">개
+            </div>
+            <div>
+                <input type="checkbox" class="menu-check" value="2500" onchange="recalc()"> 콜라 1.25L(2,500원)
+                <input type="number" class="menu-qty" value="1" min="1" style="width: 60px;" onchange="recalc()" onkeyup="recalc()">개
+            </div>
+        </div>
+
+        배달 주소: <input type="text" id="addr" size="50" onblur="checkAddress()" placeholder="주소를 입력하세요">
+        <br><br>
+
+        주문 합계: <input type="text" id="total" value="0" readonly> 원
+        <br><br>
+
+        <input type="submit" value="주문하기">
+        <input type="reset" value="초기화" onclick="setTimeout(recalc, 0)">
+    </form>
+    </main>
+    <footer>
+        <small>&copy; <span id="year"></span> 이름: 이승민</small>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
