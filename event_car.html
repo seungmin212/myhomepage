@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이승민의 홈페이지</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            border: 5px solid red;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #car {
+            position: absolute;
+            left: 100px;
+            top: 100px;
+            width: 80px;
+            height: 40px;
+            background: #e9900c;
+            border: 2px solid black;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        #info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+            background: #e9900c;
+            border: 1px solid #aaa;
+        }
+    </style>
+    <script>
+        var x = 100, y = 100;
+        var step = 10;
+        var borderWidth = 5;
+
+        window.onload = function () {
+            document.onkeydown = function (e) {
+                switch (e.keyCode) {
+                    case 37: x -= 5; break;
+                    case 38: y -= 5; break;
+                    case 39: x += 5; break;
+                    case 40: y += 5; break;
+                }
+                var car = document.getElementById("car");
+                var carW = car.offsetWidth;
+                var carH = car.offsetHeight;
+                var maxX = document.body.clientWidth - carW - borderWidth * 2;
+                var maxY = document.body.clientHeight - carH - borderWidth * 2;
+                if (x < borderWidth) x = borderWidth;
+                if (y < borderWidth) y = borderWidth;
+                if (x > maxX + borderWidth) x = maxX + borderWidth;
+                if (y > maxY + borderWidth) y = maxY + borderWidth;
+                car.style.left = x + "px";
+                car.style.top = y + "px";
+                info.innerHTML = "현재 좌표 (x, y) = (" + x + ", " + y + ")";
+                e.preventDefault();
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h3>키보드 자동차</h3>
+    <p>방향키(←, ↑, →, ↓)를 눌러 자유롭게 운전해보세요.</p>
+    <div id="car">Car</div>
+    <div id="info">현재 좌표 (x, y) = (100, 100)</div>
+    <footer>
+        <small>&copy; <span id="year"></span> 이름: 이승민</small>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
